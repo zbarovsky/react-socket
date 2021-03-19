@@ -3,6 +3,7 @@ import socketIOClient, { io } from 'socket.io-client'
 import './App.css';
 const ENDPOINT = "http://127.0.0.1:4001";
 
+// TODO: CREATE CHAT FUNCTIONALITY USING COMMENTED OUT CODE FOR REACT CHAT APP USING SOCKET.IO
 
 function App() {
   const [response, setResponse] = useState('')
