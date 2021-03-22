@@ -3,45 +3,47 @@ import socketIOClient, { io } from 'socket.io-client'
 import './App.css';
 const ENDPOINT = "http://127.0.0.1:4001";
 
-// TODO: CREATE CHAT FUNCTIONALITY USING COMMENTED OUT CODE FOR REACT CHAT APP USING SOCKET.IO
+// TODO: RENDER MESSAGES ON PAGE
 
 function App() {
   const [response, setResponse] = useState('')
+  const [time, setTime] = useState('')
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT)
     socket.on("FromAPI", data => {
-      setResponse(data)
-      console.log('response ', response)
+      setTime(data)
+      console.log('time ', time)
     })
   }, [])
 
-  // function sendMessage(e) {
-  //   e.preventDefault()
+  function handleChange(e) {
+    setResponse({value: e.target.value})
+  }
 
-  // }
-
-  // useEffect(() => {
-  //   const socket = socketIOClient(ENDPOINT)
-  //   socket.on("chat message", message => {
-  //     setResponse(message)
-  //     io.emit(response)
-  //     console.log(response)
-  //   })
-  // }, [])
+  function SendMessage(e) {
+    e.preventDefault()
+    const socket = socketIOClient(ENDPOINT)
+    if(response.value) {
+      socket.emit('chat-message', response.value)
+      console.log('response ', response.value)
+      setResponse('')
+    }
+  }
+ 
 
   return (
     <div>
       <p>
-        {response}
+        {time}
       </p>
 
-      {/* <div className='textBox'>
-        <form>
-          <input type='text' name='message'/>
+      <div className='textBox'>
+        <form onSubmit={SendMessage}>
+          <input type='text' name='message' onChange={handleChange}/>
           <button type='submit'>Send</button>
         </form>
-      </div> */}
+      </div>
     </div>
   )
 }
