@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import socketIOClient, { io } from 'socket.io-client'
 import './App.css';
-const ENDPOINT = "http://127.0.0.1:4001";
+const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
 // TODO: BREAK INTO COMPONENTS FOR BETTER OPTIMIZATION
 
