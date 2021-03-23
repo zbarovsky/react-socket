@@ -3,6 +3,8 @@ import socketIOClient, { io } from 'socket.io-client'
 import './App.css';
 const ENDPOINT = "http://127.0.0.1:4001";
 
+// TODO: BREAK INTO COMPONENTS FOR BETTER OPTIMIZATION
+
 function App() {
   const [response, setResponse] = useState('')
   const [time, setTime] = useState('')
