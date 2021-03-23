@@ -3,19 +3,29 @@ import socketIOClient, { io } from 'socket.io-client'
 import './App.css';
 const ENDPOINT = "http://127.0.0.1:4001";
 
-// TODO: RENDER MESSAGES ON PAGE
-
 function App() {
   const [response, setResponse] = useState('')
   const [time, setTime] = useState('')
+  const [messages, setMessages] = useState([])
+
+  // useEffect(() => {
+  //   const socket = socketIOClient(ENDPOINT)
+  //   socket.on("FromAPI", data => {
+  //     setTime(data)
+  //     console.log('time ', time)
+  //   })
+  // }, [])
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT)
-    socket.on("FromAPI", data => {
-      setTime(data)
-      console.log('time ', time)
+    socket.on('chat-message', message => {
+      console.log(message)
+      //setMessages([message, ...messages])
+      messages.push(message)
     })
   }, [])
+
+
 
   function handleChange(e) {
     setResponse({value: e.target.value})
@@ -30,13 +40,17 @@ function App() {
       setResponse('')
     }
   }
- 
-
+  
   return (
     <div>
       <p>
-        {time}
+        {/* {time} */}
       </p>
+      <ul>
+        {messages.map((message) => (
+          <li>{message}</li>
+        ))}
+      </ul>
 
       <div className='textBox'>
         <form onSubmit={SendMessage}>
