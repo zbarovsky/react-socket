@@ -24,12 +24,14 @@ function Chat() {
 
     useEffect(() => {
       const socket = socketIOClient(ENDPOINT)
-      socket.on('chat-message', message => {
-        console.log(message)
-        //setMessages([message, ...messages])
-        messages.push(message)
+      socket.on('chat-message', msg => {
+        setMessages([...messages, msg])
+        console.log(messages)
+        //messages.push(message)
       })
     }, [])
+
+    //console.log('messages ', messages)
 
     return (
         <div>
