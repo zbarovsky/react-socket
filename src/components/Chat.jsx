@@ -25,7 +25,7 @@ function Chat() {
     useEffect(() => {
       const socket = socketIOClient(ENDPOINT)
       socket.on('chat-message', msg => {
-        setMessages([...messages, msg])
+        setMessages(messages => [...messages, msg])
         console.log(messages)
         //messages.push(message)
       })
